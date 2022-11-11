@@ -1,0 +1,125 @@
+<c-card class="mb-4">
+    <c-card-header>
+      <c-row>
+        <c-col sm="5">
+          <h4 class="card-title mb-0" id="traffic">
+            Update Schedule Live
+          </h4>
+        </c-col>
+        <!-- <c-col class="d-none d-md-block" sm="7">
+          <button [cModalToggle]="verticallyCenteredModal.id" cButton class="float-end" color="primary" 
+          (click)="createBatches()" >
+           +Create
+          </button>
+       </c-col> -->
+      </c-row>
+    </c-card-header>
+    <c-card-body>
+        <form [formGroup]="reactiveForm" (ngSubmit)="onSubmit()">
+
+            <c-row class="mb-3">
+                <label [sm]="2" cCol cLabel="col" for="staticEmail">
+                    Title
+                </label>
+                <c-col [sm]="10">
+                  <input  formControlName='title' type="text"  />
+                </c-col>
+              </c-row>
+              <c-row class="mb-3">
+                <label cLabel="col" class="col-sm-2" for="inputPassword">
+                    Schedule Date & Time
+                </label>
+                <c-col [sm]="10">
+                  <input  formControlName='schedule' id="inputPassword" type="password" />
+                </c-col>
+              </c-row> 
+    
+              <c-row class="mb-3">
+                <label cLabel="col" class="col-sm-2" for="inputPassword">
+                    Department
+                </label>
+                <c-col [sm]="10">
+                    <select aria-label="Default select example"  formControlName='department' cSelect>
+                        <option> --Select Departmen--</option>
+                        <option value="Math & Science">Math & Science</option>
+                        <option value="All">All</option>
+                        <option value="English & Hindi">English & Hindi</option>
+                      </select>
+                </c-col>
+              </c-row> 
+    
+              <c-row class="mb-3">
+                <label cLabel="col" class="col-sm-2" for="inputPassword">
+                    Class
+                </label>
+                <c-col [sm]="10">
+                    <select aria-label="Default select example" cSelect  formControlName='class'>
+                        <option> select Class</option>
+                        <option value="12th">12th</option>
+                        <option value="11th">11th</option>
+                        <option value="10th">10th</option>
+                        <option value="9th">9th</option>
+                        <option value="8th">8th</option>
+                      </select>
+                </c-col>
+              </c-row> 
+    
+              <c-row class="mb-3">
+                <label cLabel="col" class="col-sm-2" for="inputPassword">
+                    For Batch
+                </label>
+                <c-col [sm]="10">
+                  <input id="inputPassword" plaintext readonly type="text" value="8:00 AM -9:00 AM" />
+                </c-col>
+              </c-row> 
+    
+              <c-row class="mb-3">
+                <label cLabel="col" class="col-sm-2" for="inputPassword">
+                    Status
+                </label>
+                <c-col [sm]="10">
+                    <c-form-check inline>
+                        <input  formControlName="status" id="active1" type="radio" value="Active" />
+                        <label cFormCheckLabel for="radioinline1">Active </label>
+                      </c-form-check>
+                      <c-form-check inline>
+                        <input  formControlName="status" id="inactive2" type="radio" value="Inactive" />
+                        <label cFormCheckLabel for="radioinline2">Inactive</label>
+                      </c-form-check>
+                     
+                </c-col>
+              </c-row> 
+
+              <c-row class="mb-3">
+                <label cLabel="col" class="col-sm-2" for="inputPassword">
+                  
+                </label>
+                <c-col [sm]="10">
+                    
+                    <button cButton type="submit" color="info">Submit</button>
+                    <button cButton  color="warning">Reset</button>
+                    <button cButton  color="light">Cancel</button>
+                     
+                </c-col>
+              </c-row> 
+
+              
+
+        </form>
+       
+    </c-card-body>
+
+    <c-card-footer>
+        <c-row class="mb-3">
+            <label [sm]="2" cCol cLabel="col" for="staticEmail">
+               <h5> Start Live Class</h5>
+            </label>
+            <c-col [sm]="10">
+                <button cButton  color="info">Go Live</button>
+            </c-col>
+          </c-row>
+    </c-card-footer>
+  </c-card>
+
+
+
