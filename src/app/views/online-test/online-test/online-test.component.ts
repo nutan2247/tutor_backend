@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {SetListService} from '../../../services/setList/set-list.service';
+import {QuestionlistService} from '../../../services/questionlist/questionlist.service';
 
 @Component({
   selector: 'app-online-test',
@@ -9,6 +11,11 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 export class OnlineTestComponent implements OnInit {
 
   public liveDemoVisible = false;
+  setList:any[]=[];
+  deleteIdi:any;
+  editIdi:any;
+  isedit:boolean=false;
+  questionlists:any[]=[];
   data:any =[
     {"id":1,"question":'अगर किसी पिंड के लिए वेग समय ग्राफ एक सीधी रेखा नही हैं , तब बताया जाता हैं',"set":'SCIENCE -IX-OBJECIVE TEST-1(PHY-1,CHEM-1,BIO-1&2)',"class":'IXth',"language":'Hindi', "status":"Active" },
     {"id":2,"question":'अगर किसी पिंड के लिए वेग समय ग्राफ एक सीधी रेखा नही हैं , तब बताया जाता हैं',"set":'SCIENCE -IX-OBJECIVE TEST-1(PHY-1,CHEM-1,BIO-1&2)',"class":'IXth',"language":'Hindi', "status":"Active" },
@@ -19,7 +26,10 @@ export class OnlineTestComponent implements OnInit {
 
   form: FormGroup;
   id:any;
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+    private setlistService:SetListService,
+    private questionListService:QuestionlistService
+    ) {
     this.form = this.fb.group({
       question:new FormControl(''),
       set:new FormControl(''),
@@ -34,6 +44,20 @@ export class OnlineTestComponent implements OnInit {
    }
   ngOnInit(): void {
     // this.initForm();
+    this.getQuestionList();
+  }
+
+  getSetList(){
+    this.setlistService.getData().subscribe(res=> {
+      console.log('result',res);
+      this.setList = res.data;
+    })
+  }
+
+  getQuestionList(){
+    this.questionListService.getList().subscribe(res => {
+      console.log('result of QuestionList',res);
+    })
   }
 
   initForm(){
@@ -49,7 +73,9 @@ export class OnlineTestComponent implements OnInit {
     console.log('reactive form',this.form.value);
   }
   create(){
+    this.isedit= false;
     this.initForm();
+    this.getSetList();
     // alert('I am in progress, thanku')
 
   }
@@ -63,9 +89,21 @@ export class OnlineTestComponent implements OnInit {
   }
 
   edit(data:any){
-console.log('data',data);
+    this.isedit= true;
+    this.getSetList();
 this.form.patchValue(data);
 // this.form.setValue(data);
+  }
+  saveEditData(){
+
+  }
+
+  delete1(){
+
+  }
+
+  deleteId(param:any){
+
   }
 
 

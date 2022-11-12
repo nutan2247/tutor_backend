@@ -153,10 +153,7 @@
                             <label cLabel for="exampleFormControlClass">Class</label><br>
                             <select cSelect id="exampleFormControlClass" class="form-control" formControlName='class'>
                               <option [disabled]="true" [selected]="true">Select</option>
-                              <option value="7">7th</option>
-                              <option value="8">8th</option>
-                              <option value="9">9th</option>
-                              <option value="10">10th</option>
+                              <option  *ngFor="let class of classes" [value]="class.admin_id">{{class.class_name}}</option>
                             </select>
                           </div>
                     </td>

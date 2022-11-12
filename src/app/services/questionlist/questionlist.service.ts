@@ -6,25 +6,26 @@ import *as featureInterface from '../interfaces/interface'
 @Injectable({
   providedIn: 'root'
 })
-export class ChapterService {
+export class QuestionlistService {
 
   constructor(private http: HttpClient) { }
 
   getList(): Observable<any>{
-    return this.http.get<any>(featureInterface.chapterList);
+    return this.http.get<any>(featureInterface.questionList);
    }
 
    addList(data: any): Observable<any>{
-    return this.http.post<any>(featureInterface.chapterAdd, data);
+    return this.http.post<any>(featureInterface.questionAdd, data);
    }
 
    deleteApi(data: any): Observable<any>{
-    return this.http.delete<any>(`${featureInterface.chapterDelete}/${data}`);
+    return this.http.delete<any>(`${featureInterface.questionDelete}/${data}`);
    }
 
    updateApi(id: any,data:any): Observable<any>{
-    const apii =`${featureInterface.chapterUpdate}/${id}`;
+    const apii =`${featureInterface.questionUpdate}/${id}`;
     // console.log(apii);
     return this.http.patch<any>(apii,data);
    }
+  
 }
