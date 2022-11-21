@@ -6,12 +6,15 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { LoginService } from 'src/app/services/login/login.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class TokenInterceptorInterceptor implements HttpInterceptor {
 
 token:any;
-  constructor() {
+  constructor(private loginService:LoginService,
+    private route:Router) {
     this.token = localStorage.getItem('token');
     console.log('token get local storage', this.token);
   }
@@ -22,6 +25,12 @@ token:any;
       request: HttpRequest<any>,
       next: HttpHandler
     ): Observable<HttpEvent<any>> {
+      if(!this.loginService.isLoggedIn()){
+        this.route.navigate(['/']);
+      }
+      // else{
+      //   this.route.navigate(['/dashboard']);
+      // }
       if(request.url){
         if(request.url.indexOf('login_by_otp') >= 0 || request.url.indexOf('verify_otp') >=0 
         || request.url.indexOf('login') >=0 ){

@@ -7,8 +7,8 @@
           </h4>
         </c-col>
         <c-col class="d-none d-md-block" sm="7">
-          <button [cModalToggle]="verticallyCenteredModal.id" cButton class="float-end" color="primary" 
-          (click)="create()" >
+          <button [cModalToggle]="verticallyCenteredModal.id" cButton class="float-end" color="primary" (click)="createNew()"
+           >
            +Create New
           </button>
        </c-col>
@@ -24,11 +24,13 @@
         </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let list of data">
+            <tr *ngFor="let list of listData; let i=index">
+             <td>{{i+1}}</td>
             <td>{{list.name}}</td>
              <td>{{list.status}}</td>
             <td>
                 <button color="warning"  [cModalToggle]="verticallyCenteredModal.id" cButton (click)="edit(list)" >Edit</button>
+                <button cButton [cModalToggle]="delete.id" (click)="deleteId(list)" >Delete</button>
             </td>
             </tr>
             </tbody>
@@ -44,7 +46,7 @@
 <c-modal #verticallyCenteredModal alignment="center" id="verticallyCenteredModal">
     <c-modal-header>
       <h5 cModalTitle>Topic</h5>
-      <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
+      <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose (click)="close()"></button>
     </c-modal-header>
 
     <c-modal-body>
@@ -62,17 +64,37 @@
                         <label cLabel for="exampleFormControlStatus">Status</label><br>
                         <select cSelect id="exampleFormControlStatus" class="form-control" formControlName='status'>
                           <option [disabled]="true" [selected]="true">Select Status</option>
-                          <option value="Active">Active</option>
-                          <option value="Inactive">Inactive</option>
+                          <option value="active">Active</option>
+                          <option value="inactive">Inactive</option>
                         </select>
                       </div>
                     
                     <c-modal-footer>
-                      <button [cModalToggle]="verticallyCenteredModal.id" cButton color="secondary">
+                      <button [cModalToggle]="verticallyCenteredModal.id" cButton color="secondary" (click)="close()">
                         Close
                       </button>
-                      <button [cModalToggle]="verticallyCenteredModal.id" cButton type="submit" color="primary" (click)="saveNewData()" >Done</button>
+                      <button *ngIf="!isedit" [cModalToggle]="verticallyCenteredModal.id" cButton type="submit" color="primary" (click)="saveNewData()" >Done</button>
+                      <button [cModalToggle]="verticallyCenteredModal.id" cButton type="submit" color="primary"
+                          *ngIf="isedit" (click)="saveEditData()"  >Edit</button>
                     </c-modal-footer>
           </form>
     </c-modal-body>
   </c-modal> 
+
+
+   <!-- delete modal -->
+<c-modal #delete alignment="center" id="delete">
+  <c-modal-header>
+    <h5 cModalTitle>Delete!</h5>
+    <button [cModalToggle]="delete.id" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    Woohoo, you are Deleting this Topic .
+  </c-modal-body>
+  <c-modal-footer>
+    <button [cModalToggle]="delete.id" cButton color="secondary">
+      Close
+    </button>
+    <button cButton color="primary" (click)="delete1()" [cModalToggle]="delete.id">Delete</button>
+  </c-modal-footer>
+</c-modal>

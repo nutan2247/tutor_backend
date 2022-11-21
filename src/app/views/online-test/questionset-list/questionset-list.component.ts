@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import {SetListService} from '../../../services/setList/set-list.service';
-
+import {ClassesService} from '../../../services/classes/classes.service';
+import { CommonService } from 'src/app/services/common/common.service';
 @Component({
   selector: 'app-questionset-list',
   templateUrl: './questionset-list.component.html',
@@ -10,10 +11,11 @@ import {SetListService} from '../../../services/setList/set-list.service';
 export class QuestionsetListComponent implements OnInit {
 
   public liveDemoVisible = false;
+  classes:any[]=[];
   deleteIdi:any;
   editIdi:any;
-  apidata:any[]=[];
   isedit:boolean=false;
+  apidata:any[]=[];
   // data:any =[
   //   {"id":1,"chapter":'SCIENCE-IX(PHY-1,CHEM-1,BIO-1)',"class":"7th", "name":"SCIENCE -IX-OBJECIVE TEST-1(PHY-1,CHEM-1,BIO-1&2)","totalTime":"15", "language":"hind","totalQuestion":"10","markPerQuestion":"15" },
   //   {"id":1,"chapter":'SCIENCE-IX(PHY-1,CHEM-1,BIO-1)',"class":"7th", "name":"SCIENCE -IX-OBJECIVE TEST-1(PHY-1,CHEM-1,BIO-1&2)","totalTime":"15", "language":"hind","totalQuestion":"10","markPerQuestion":"15" },
@@ -26,7 +28,10 @@ export class QuestionsetListComponent implements OnInit {
   form: FormGroup;
   id:any;
   constructor(private fb: FormBuilder,
-    private setlistService:SetListService) {
+    private setlistService:SetListService,
+    private classService:ClassesService,
+    private commonService:CommonService
+    ) {
     this.form = this.fb.group({
       chapter:new FormControl(''),
       name:new FormControl(''),
@@ -47,6 +52,20 @@ export class QuestionsetListComponent implements OnInit {
     this.isedit= false;
     this.getApiData();
   }
+
+  getClass(){
+    this.classService.getClass().subscribe(res => {
+      // console.log('class Api hit',res);
+      if(res.success == true){
+        this.classes = res.data;
+        console.log('class Api hit',this.classes);
+      }
+    },
+    (err)=>{
+      console.log('Topic List Api Error',err.error);
+      this.commonService.tokenDelete(err.error.msg);
+    })
+      }
 
   getApiData(){
     this.setlistService.getData().subscribe(res=> {
@@ -73,6 +92,7 @@ export class QuestionsetListComponent implements OnInit {
 
   resetForm(){
      this.isedit= false;
+     this.getClass();
 this.initForm();
   }
 
@@ -85,6 +105,10 @@ this.initForm();
       if(res.success == true){
         this.getApiData();
       }
+    },
+    (err)=>{
+      console.log('Topic List Api Error',err.error);
+      this.commonService.tokenDelete(err.error.msg);
     });
   }
 
@@ -95,6 +119,10 @@ this.initForm();
       if(res.success == true){
         this.getApiData();
       }
+    },
+    (err)=>{
+      console.log('Topic List Api Error',err.error);
+      this.commonService.tokenDelete(err.error.msg);
     }
       )
   }
@@ -114,6 +142,7 @@ this.initForm();
 
   edit(data:any){
     this.isedit= true;
+    this.getClass();
     this.editIdi=data._id;
 console.log('Edit data',data);
 const allPatchData = {chapter:data.chapter_name, name:data.qps_title, language:data.qps_language, class:data.admin_id, subject:data.subject, totalTime:data.qps_time, markPerQuestion:data.qps_mark, totalQuestion:data.no_of_ques, vdoSolution:'', pdfsolution:data.solution_pdf, status:data.qps_status,}
@@ -131,6 +160,10 @@ this.setlistService.deleteApi(this.deleteIdi).subscribe(res => {
   if(res.success == true){
     this.getApiData();
   }
+},
+(err)=>{
+  console.log('Topic List Api Error',err.error);
+  this.commonService.tokenDelete(err.error.msg);
 })
   }
 

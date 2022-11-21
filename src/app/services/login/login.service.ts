@@ -14,11 +14,12 @@ export class LoginService {
   getLogin(data: any): Observable<any>{
     return this.http.post<any>(this.url, data);
    }
+   
   //  termConditions(): Observable<any> {
   //   return this.http.get<any>(this.url2);
   // }
 
-  //  isLoggedIn(){
-  //   return localStorage.getItem('token')!=null;   //it will return false otherWise its will be true
-  //  }
+   isLoggedIn(){
+    return localStorage.getItem('token')!=null;   //it will return false otherWise its will be true
+   }
 }

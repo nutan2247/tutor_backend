@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit{
   constructor(private router:Router,private formBuilder: FormBuilder,
     private loginService: LoginService) {
     this.reactiveForm = this.formBuilder.group({
-      email: new FormControl('', [Validators.required]),
+      email: new FormControl('admin@admin.com', [Validators.required]),
       password: new FormControl('', [Validators.required,Validators.minLength(6)]),
     });
   }
