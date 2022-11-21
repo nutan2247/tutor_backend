@@ -37,7 +37,7 @@ import { IconModule } from '@coreui/icons-angular';
 // utils
 import { DocsComponentsModule } from '@docs-components/docs-components.module';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 @NgModule({
   declarations: [
@@ -75,6 +75,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AlertModule,
     ModalModule,
     ToastModule,
+    NgxMaterialTimepickerModule,
   ]
 })
 export class BatchesModule { }

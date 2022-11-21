@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import {SetListService} from '../../../services/setList/set-list.service';
 import {ClassesService} from '../../../services/classes/classes.service';
+import { CommonService } from 'src/app/services/common/common.service';
 @Component({
   selector: 'app-questionset-list',
   templateUrl: './questionset-list.component.html',
@@ -28,7 +29,8 @@ export class QuestionsetListComponent implements OnInit {
   id:any;
   constructor(private fb: FormBuilder,
     private setlistService:SetListService,
-    private classService:ClassesService
+    private classService:ClassesService,
+    private commonService:CommonService
     ) {
     this.form = this.fb.group({
       chapter:new FormControl(''),
@@ -58,6 +60,10 @@ export class QuestionsetListComponent implements OnInit {
         this.classes = res.data;
         console.log('class Api hit',this.classes);
       }
+    },
+    (err)=>{
+      console.log('Topic List Api Error',err.error);
+      this.commonService.tokenDelete(err.error.msg);
     })
       }
 
@@ -99,6 +105,10 @@ this.initForm();
       if(res.success == true){
         this.getApiData();
       }
+    },
+    (err)=>{
+      console.log('Topic List Api Error',err.error);
+      this.commonService.tokenDelete(err.error.msg);
     });
   }
 
@@ -109,6 +119,10 @@ this.initForm();
       if(res.success == true){
         this.getApiData();
       }
+    },
+    (err)=>{
+      console.log('Topic List Api Error',err.error);
+      this.commonService.tokenDelete(err.error.msg);
     }
       )
   }
@@ -146,6 +160,10 @@ this.setlistService.deleteApi(this.deleteIdi).subscribe(res => {
   if(res.success == true){
     this.getApiData();
   }
+},
+(err)=>{
+  console.log('Topic List Api Error',err.error);
+  this.commonService.tokenDelete(err.error.msg);
 })
   }
 

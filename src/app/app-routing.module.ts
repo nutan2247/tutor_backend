@@ -7,6 +7,7 @@ import { Page500Component } from './views/pages/page500/page500.component';
 import { LoginComponent } from './views/pages/login/login.component';
 import { RegisterComponent } from './views/pages/register/register.component';
 import {AuthGuard} from './guard/auth.guard';
+import {LoginGuard} from './guard/login/login.guard';
 
 const routes: Routes = [
   {
@@ -25,7 +26,7 @@ const routes: Routes = [
         path: 'dashboard',
         loadChildren: () =>
           import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule)
-      },
+      } ,
       {
         path: 'theme',
         loadChildren: () =>
@@ -174,7 +175,8 @@ const routes: Routes = [
     component: LoginComponent,
     data: {
       title: 'Login Page'
-    }
+    }, canActivate:[LoginGuard]
+    // ,canActivate:[AuthGuard]
   },
   {
     path: 'register',

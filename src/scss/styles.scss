@@ -24,3 +24,10 @@ $enable-rtl: true;
 
 // If you want to add something do it here
 @import "custom";
+.timepicker-overlay { 
+    z-index: 10000000 !important;
+ }
+
+.timepicker-backdrop-overlay {
+    z-index: 10000000 !important;
+}

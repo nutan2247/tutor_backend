@@ -27,12 +27,19 @@
         </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let list of data; let i= index">
+            <!-- <tr *ngFor="let list of data; let i= index">
                 <td>{{i+1}}</td>
             <td>{{list.question}}</td>
              <td>{{list.set}}</td>
              <td>{{list.class}}</td>
              <td>{{list.language}}</td>
+            <td> -->
+              <tr *ngFor="let list of questionlists; let i= index">
+                <td>{{i+1}}</td>
+            <td>{{list?.question}}</td>
+             <td>{{list?.set}}</td>
+             <td>{{list?.result[0]?.admin_id}}</td>
+             <td>{{list?.result[0]?.qps_language}}</td>
             <td>
                 <button color="warning"  [cModalToggle]="verticallyCenteredModal.id" cButton (click)="edit(list)" >Edit</button>
                 <button cButton [cModalToggle]="delete.id" (click)="deleteId(list)"  >delete</button>
@@ -69,13 +76,13 @@
             </select>
           </div>
 
-          <div class="mb-3">
+          <!-- <div class="mb-3">
             <label cLabel for="exampleFormControlType">Type</label><br>
             <select cSelect id="exampleFormControlType" class="form-control" formControlName='type'>
               <option [disabled]="true" [selected]="true">Select</option>
               <option value="Active">Single Section</option>
             </select>
-          </div>
+          </div> -->
 
           <div class="mb-3">
           <label cLabel for="exampleFormControlQuestion">Question</label><br>
@@ -120,10 +127,10 @@
                                     <label cLabel for="exampleFormControlAnswer">Right Option</label><br>
                                     <select cSelect id="exampleFormControlAnswer" class="form-control" formControlName='answer'>
                                       <option [disabled]="true" [selected]="true">Select</option>
-                                      <option value="option1"> Option 1 </option>
-                                      <option value="option2">Option 2</option>
-                                      <option value="option3">Option 3</option>
-                                      <option value="option4">Option 4</option>
+                                      <option value="0"> Option 1 </option>
+                                      <option value="1">Option 2</option>
+                                      <option value="2">Option 3</option>
+                                      <option value="3">Option 4</option>
                                     </select>
                                   </div>
   

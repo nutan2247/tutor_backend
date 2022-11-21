@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { CommonService } from 'src/app/services/common/common.service';
 import {SubjectService} from 'src/app/services/subject/subject.service';
 import {ClassesService} from '../../../services/classes/classes.service';
 
@@ -29,7 +30,8 @@ export class SubjectComponent implements OnInit {
   id:any;
   constructor(private fb: FormBuilder,
     private subjectService:SubjectService,
-    private classService:ClassesService) {
+    private classService:ClassesService,
+    private commonService:CommonService) {
     this.form = this.fb.group({
       subject_name:new FormControl(''),
       // department:new FormControl(''),
@@ -50,6 +52,10 @@ this.classService.getClass().subscribe(res => {
     this.classes = res.data;
     console.log('class Api hit',this.classes);
   }
+},
+(err)=>{
+  console.log('Topic List Api Error',err.error);
+  this.commonService.tokenDelete(err.error.msg);
 })
   }
 
@@ -61,7 +67,8 @@ this.classService.getClass().subscribe(res => {
       }
     },
     (err)=>{
-      console.log('get Error',err);
+      console.log('Topic List Api Error',err.error);
+      this.commonService.tokenDelete(err.error.msg);
     })
   }
 
@@ -83,6 +90,10 @@ this.classService.getClass().subscribe(res => {
     if(res.success == true){
       this.getData();
     }
+   },
+   (err)=>{
+     console.log('Topic List Api Error',err.error);
+     this.commonService.tokenDelete(err.error.msg);
    })
   }
 
@@ -117,6 +128,10 @@ this.form.patchValue(datas);
   if(res.success == true){
     this.getData();
   }
+ },
+ (err)=>{
+   console.log('Topic List Api Error',err.error);
+   this.commonService.tokenDelete(err.error.msg);
  })
   }
 
@@ -131,6 +146,10 @@ this.form.patchValue(datas);
       if(res.success == true){
         this.getData();
       }
+    },
+    (err)=>{
+      console.log('Topic List Api Error',err.error);
+      this.commonService.tokenDelete(err.error.msg);
     })
       }
 

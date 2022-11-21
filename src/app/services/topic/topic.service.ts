@@ -1,31 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import *as featureInterface from '../interfaces/interface'
-
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class BannerService {
+export class TopicService {
 
   constructor(private http: HttpClient) { }
 
-  getData(): Observable<any>{
-    return this.http.get<any>(featureInterface.bannerList);
+  getList(): Observable<any>{
+    return this.http.get<any>(featureInterface.topicList);
    }
 
    addList(data: any): Observable<any>{
-    return this.http.post<any>(featureInterface.bannerAdd, data);
+    return this.http.post<any>(featureInterface.topicAdd, data);
    }
 
    deleteApi(data: any): Observable<any>{
-    return this.http.delete<any>(`${featureInterface.bannerDelete}/${data}`);
+    return this.http.delete<any>(`${featureInterface.topicDelete}/${data}`);
    }
 
    updateApi(id: any,data:any): Observable<any>{
-    const apii =`${featureInterface.bannerUpdate}/${id}`;
+    const apii =`${featureInterface.topicUpdate}/${id}`;
     // console.log(apii);
     return this.http.patch<any>(apii,data);
-   }
-  
-}
+   } 
+  }

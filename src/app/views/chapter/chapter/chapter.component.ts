@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { CommonService } from 'src/app/services/common/common.service';
 import {ChapterService} from '../../../services/chapter/chapter.service';
 
 @Component({
@@ -25,7 +26,8 @@ export class ChapterComponent implements OnInit {
   form: FormGroup;
   id:any;
   constructor(private fb: FormBuilder,
-    private chapterService:ChapterService) {
+    private chapterService:ChapterService,
+    private commonService:CommonService) {
     this.form = this.fb.group({
       chapterTitle:new FormControl(''),
       class:new FormControl(''),
@@ -58,6 +60,10 @@ export class ChapterComponent implements OnInit {
    this.data = res.data;
    console.log('this.data',this.data);
       }
+    },
+    (err)=>{
+      console.log('Topic List Api Error',err.error);
+      this.commonService.tokenDelete(err.error.msg);
     })
   }
 
@@ -76,6 +82,10 @@ this.initForm();
       if(res.success == true){
         this.getChapterList();
       }
+    },
+    (err)=>{
+      console.log('Topic List Api Error',err.error);
+      this.commonService.tokenDelete(err.error.msg);
     })
   }
   create(){
@@ -93,6 +103,10 @@ this.initForm();
       this.getChapterList();
     }
     
+  },
+  (err)=>{
+    console.log('Topic List Api Error',err.error);
+    this.commonService.tokenDelete(err.error.msg);
   });
   }
 
@@ -103,6 +117,10 @@ this.chapterService.updateApi(this.editIdi,data).subscribe(res=>{
   if(res.success == true){
     this.getChapterList();
   }
+},
+(err)=>{
+  console.log('Topic List Api Error',err.error);
+  this.commonService.tokenDelete(err.error.msg);
 })
   }
 

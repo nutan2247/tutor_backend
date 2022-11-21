@@ -74,7 +74,7 @@ import { DocsComponentsModule } from '@docs-components/docs-components.module';
     DocsComponentsModule,
     AlertModule,
     ModalModule,
-    ToastModule,
+    ToastModule
   ]
 })
 export class SliderModule { }
