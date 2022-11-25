@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ChatComponent } from './chat/chat.component';
+import { ChatboxComponent } from './chat/chatbox/chatbox.component';
 
 const routes: Routes = [
   {
@@ -9,7 +10,7 @@ const routes: Routes = [
     data: {
       title: 'Chat'
     },
-  }
+  },
 ];
 
 @NgModule({

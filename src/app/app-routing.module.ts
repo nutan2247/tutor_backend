@@ -8,6 +8,7 @@ import { LoginComponent } from './views/pages/login/login.component';
 import { RegisterComponent } from './views/pages/register/register.component';
 import {AuthGuard} from './guard/auth.guard';
 import {LoginGuard} from './guard/login/login.guard';
+import { ChatboxComponent } from './views/chat/chat/chatbox/chatbox.component';
 
 const routes: Routes = [
   {
@@ -132,6 +133,7 @@ const routes: Routes = [
         loadChildren: () =>
           import('./views/chat/chat.module').then((m) => m.ChatModule)
       },
+      {path:'chat/:id', component:ChatboxComponent},
       {
         path: 'notification',
         loadChildren: () =>

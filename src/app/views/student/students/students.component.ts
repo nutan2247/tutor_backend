@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { BatchService } from 'src/app/services/batch/batch.service';
+import { CommonService } from 'src/app/services/common/common.service';
 import { StudentService } from '../../../services/student/student.service';
 
 @Component({
@@ -157,7 +158,8 @@ export class StudentsComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
      private studentService: StudentService,
-     private batchService:BatchService
+     private batchService:BatchService,
+     private commonService:CommonService
      ) {
     this.formReactive = this.fb.group({
       name: new FormControl(''),
@@ -187,6 +189,8 @@ export class StudentsComponent implements OnInit {
   ngOnInit(): void {
     // this.alllDetails();
     this.getAllList();
+    let max_num = Number.NEGATIVE_INFINITY;
+    console.log('max num',max_num);
   }
 
   getBatchList(){
@@ -195,6 +199,10 @@ export class StudentsComponent implements OnInit {
       if(res.success==true){
         this.batchList =res.data;
       }
+    },
+    (err)=>{
+      console.log('Topic List Api Error',err.error);
+      this.commonService.tokenDelete(err.error.msg);
     })
   }
 
@@ -276,36 +284,40 @@ export class StudentsComponent implements OnInit {
     // alert('working');
 
     console.log('all data Value', this.formReactive.value);
-    // const addData = {
-    //   board: this.formReactive.value.bord,
-    //   admission_for: this.formReactive.value.class,
-    //   select_batch_time: this.formReactive.value.batchTime,
-    //   name: this.formReactive.value.name,
-    //   father_name: this.formReactive.value.fatherName,
-    //   mother_name: this.formReactive.value.motherName,
-    //   email: this.formReactive.value.email,
-    //   password: this.formReactive.value.password,
-    //   sex: this.formReactive.value.gender,
-    //   mobile_number: this.formReactive.value.mobilename,
-    //   contact_number_father: this.formReactive.value.fatherContact,
-    //   date_of_birth: this.formReactive.value.dateOfBirthday,
-    //   address: this.formReactive.value.address,
-    //   payment_type: this.formReactive.value.paymentType,
-    //   fee_amount: this.formReactive.value.recieveFee,
-    //   payment_mode: this.formReactive.value.paymentTerm,
-    //   roll_no: this.formReactive.value.rollNo,
-    //   session: this.formReactive.value.session,
-    //   exam_seating: this.formReactive.value.examSeating,
-    //   login_code: this.formReactive.value.loginCode,
-    //   status: this.formReactive.value.status,
-    // };
-    // this.studentService.addList(addData).subscribe((res) => {
-    //   // console.log('result of student api da4ee',res);
-    //   if (res.success == true) {
-    //     this.getAllList();
-    //     this.resetForm();
-    //   }
-    // });
+    const addData = {
+      board: this.formReactive.value.bord,
+      admission_for: this.formReactive.value.class,
+      select_batch_time: this.formReactive.value.batchTime,
+      name: this.formReactive.value.name,
+      father_name: this.formReactive.value.fatherName,
+      mother_name: this.formReactive.value.motherName,
+      email: this.formReactive.value.email,
+      password: this.formReactive.value.password,
+      sex: this.formReactive.value.gender,
+      mobile_number: this.formReactive.value.mobilename,
+      contact_number_father: this.formReactive.value.fatherContact,
+      date_of_birth: this.formReactive.value.dateOfBirthday,
+      address: this.formReactive.value.address,
+      payment_type: this.formReactive.value.paymentType,
+      fee_amount: this.formReactive.value.recieveFee,
+      payment_mode: this.formReactive.value.paymentTerm,
+      roll_no: this.formReactive.value.rollNo,
+      session: this.formReactive.value.session,
+      exam_seating: this.formReactive.value.examSeating,
+      login_code: this.formReactive.value.loginCode,
+      status: this.formReactive.value.status,
+    };
+    this.studentService.addList(addData).subscribe((res) => {
+      // console.log('result of student api da4ee',res);
+      if (res.success == true) {
+        this.getAllList();
+        this.resetForm();
+      }
+    },
+    (err)=>{
+      console.log('Topic List Api Error',err.error);
+      this.commonService.tokenDelete(err.error.msg);
+    });
   }
   saveEditData() {
     const editDataData = {
@@ -337,6 +349,10 @@ export class StudentsComponent implements OnInit {
         this.getAllList();
         this.resetForm();
       }
+    },
+    (err)=>{
+      console.log('Topic List Api Error',err.error);
+      this.commonService.tokenDelete(err.error.msg);
     })
   }
 
@@ -352,6 +368,10 @@ export class StudentsComponent implements OnInit {
       if(res.success == true) {
         this.getAllList();
       }
+    },
+    (err)=>{
+      console.log('Topic List Api Error',err.error);
+      this.commonService.tokenDelete(err.error.msg);
     })
 
   }
