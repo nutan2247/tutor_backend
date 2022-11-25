@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import {ChatService} from '../../../services/chat/chat.service';
 
 @Component({
   selector: 'app-chat',
@@ -75,8 +77,10 @@ export class ChatComponent implements OnInit {
       "newChat": '0',
     },
   ];
+  chatList:any[]=[];
  
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,private router:Router,
+    private chatService:ChatService) {
     this.formReactive = this.fb.group({
       name: new FormControl(''),
       photo: new FormControl(''),
@@ -96,7 +100,9 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     // this.alllDetails();
+    this.getchatList();
   }
+
   resetForm(){
     this.formReactive = this.fb.group({
       name: '',
@@ -114,19 +120,30 @@ export class ChatComponent implements OnInit {
       status: '',
     });
   }
-  edit(item:any) {
-    console.log('data',item);
-    this.formReactive.patchValue(item);
-    // this.form.setValue(item);
+
+  getchatList(){
+    // this.chatList = 
+    this.chatService.getList().subscribe(res=>{
+      console.log('resut of chat list api',res);
+      if(res.success==true){
+        this.chatList = res.data;
+        console.log('his.chatList',this.chatList);
+      }
+    })
 
   }
+
+ 
   onSubmit() {
     // alert('working');
     console.log('all data Value', this.formReactive.value);
   }
-  // saveNewData() {
-  //   alert('save working');
-  // }
+
+  chatBox(param:any){
+    console.log('param data',param)
+    this.router.navigate(['./chat/',param.student_id]);
+  }
+
 
   toggleLiveDemo() {
     this.liveDemoVisible = !this.liveDemoVisible;
@@ -136,7 +153,5 @@ export class ChatComponent implements OnInit {
     this.liveDemoVisible = event;
   }
 
-  // alllDetails() {
-  //   this.details = 
-  // }
+ 
 }

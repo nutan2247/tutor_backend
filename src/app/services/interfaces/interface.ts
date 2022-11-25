@@ -46,3 +46,27 @@ export let batchList = domain+'admin/batch/list';
 export let batchAdd = domain+'admin/batch/add';
 export let batchUpdate = domain+'admin/batch/update';
 export let batchDelete = domain+'admin/batch/delete';
+// SamplePaper
+export let smapleList = domain+'admin/sample/list';
+export let smapleAdd = domain+'admin/sample/add';
+export let smapleUpdate = domain+'admin/sample/update';
+export let smapleDelete = domain+'admin/sample/delete';
+// Notification
+export let notificationList = domain+'admin/notification/list';
+export let notificationAdd = domain+'admin/notification/add';
+export let notificationUpdate = domain+'admin/notification/update';
+export let notificationDelete = domain+'admin/notification/delete';
+// Notifice Board
+export let noticeBoardget = domain+'admin/notice/list';
+export let noticeBoardAdd = domain+'admin/notice/add';
+export let noticeBoardUpdate = domain+'admin/notice/update';
+export let noticeBoardDelete = domain+'admin/notice/delete';
+// chat
+export let chatlist = domain+'admin/chat/list';
+export let chatAdd = domain+'admin/chat/add';
+export let chatUpdate = domain+'admin/chat/update';
+export let chatDelete = domain+'admin/chat/delete';
+// chatMessenger
+export let chatAdminPost = domain+'admin/chat/admin';
+export let ChatMessageList = domain+'admin/chating/list';
+

@@ -3,12 +3,12 @@
       <c-row>
         <c-col sm="5">
           <h4 class="card-title mb-0" id="traffic">
-           SamplePeper
+           Sample Paper
           </h4>
         </c-col>
         <c-col class="d-none d-md-block" sm="7">
           <button [cModalToggle]="verticallyCenteredModal.id" cButton class="float-end" color="primary" 
-          (click)="create()" >
+          (click)="openAddModal()" >
            +Create New
           </button>
        </c-col>
@@ -18,6 +18,7 @@
         <table [striped]="true" cTable>
             <thead>
             <tr>
+              <th scope="col">S.NO</th>
             <th scope="col">Title</th>
             <th scope="col">Class</th>
             <th scope="col">Exam Seating</th>
@@ -29,16 +30,21 @@
         </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let list of data">
+            <tr *ngFor="let list of samplePaperList; let i=index">
+              <td>{{i+1}}</td>
             <td>{{list.title}}</td>
-            <td>{{list.class}}</td>
-            <td>{{list.examseating}}</td>
-            <td>{{list.stratTiming}}</td>
-            <td>{{list.stratTiming}}</td>
-            <td><a href={{list.documnet}} target="_blank">View</a></td>
+            <td>{{list.class_for}}</td>
+            <td>{{list.exam_seating}}</td>
+            <td>{{list.starting_time}}</td>
+            <td>{{list.time_duration}}</td>
+            <!-- <td><a href="{{path}}+{{list.upload_document}}" target="_blank">View</a></td> -->
+            
+            <td><a href="https://upload.wikimedia.org/wikipedia/commons/4/41/Sunflower_from_Silesia2.jpg" target="_blank">View</a>
+            </td>
              <td>{{list.status}}</td>
             <td>
                 <button color="warning"  [cModalToggle]="verticallyCenteredModal.id" cButton (click)="edit(list)" >Edit</button>
+                <button cButton color="primary" (click)="deleteModal(list)" [cModalToggle]="delete.id">Delete</button>
             </td>
             </tr>
             </tbody>
@@ -53,8 +59,8 @@
 
 <c-modal #verticallyCenteredModal alignment="center" id="verticallyCenteredModal">
     <c-modal-header>
-      <h5 cModalTitle>SamplePeper</h5>
-      <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
+      <h5 cModalTitle>Sample Paper</h5>
+      <button (click)="initForm()" [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
     </c-modal-header>
 
     <c-modal-body>
@@ -72,11 +78,11 @@
             <label cLabel for="exampleFormControlClass">Class</label><br>
             <select cSelect id="exampleFormControlClass" class="form-control" formControlName='class'>
               <option [disabled]="true" [selected]="true">Select Class</option>
-              <option value="8th">8th</option>
-              <option value="9th">9th</option>
-              <option value="10th">10th</option>
-              <option value="11th">11th</option>
-              <option value="12th">12th</option>
+              <option value="8">8th</option>
+              <option value="9">9th</option>
+              <option value="10">10th</option>
+              <option value="11">11th</option>
+              <option value="12">12th</option>
             </select>
           </div>
 
@@ -100,7 +106,7 @@
                     <label cLabel for="exampleFormControlStartTime">Starting Time</label><br>
                     <input id="exampleFormControlStartTime"
                                placeholder="Enter Exam Seating"
-                               type="text"
+                               type="number"
                                formControlName='stratTiming' />
                     </div>
 
@@ -108,15 +114,15 @@
                         <label cLabel for="exampleFormControlTimeduration">Time Duration</label><br>
                         <input id="exampleFormControlTimeduration"
                                    placeholder="Enter Exam Seating"
-                                   type="text"
+                                   type="number"
                                    formControlName='timeduration' />
                         </div>
 
                         <div class="mb-3">
                             <label cLabel for="exampleFormControlDocument">Document</label><br>
-                            <input id="exampleFormControlDocument"
+                            <input #fileInput id="exampleFormControlDocument" 
                                        placeholder="Enter Exam Seating"
-                                       type="file"
+                                       type="file" (change)="onFileChange($event)" 
                                        formControlName='documnet' />
                             </div>
 
@@ -124,17 +130,37 @@
                         <label cLabel for="exampleFormControlStatus">Status</label><br>
                         <select cSelect id="exampleFormControlStatus" class="form-control" formControlName='status'>
                           <option [disabled]="true" [selected]="true">Select Status</option>
-                          <option value="Active">Active</option>
-                          <option value="Inactive">Inactive</option>
+                          <option value="active">Active</option>
+                          <option value="inactive">Inactive</option>
                         </select>
                       </div>
                     
                     <c-modal-footer>
-                      <button [cModalToggle]="verticallyCenteredModal.id" cButton color="secondary">
+                      <button (click)="initForm()" [cModalToggle]="verticallyCenteredModal.id" cButton color="secondary">
                         Close
                       </button>
-                      <button [cModalToggle]="verticallyCenteredModal.id" cButton type="submit" color="primary" (click)="saveNewData()" >Done</button>
+                      <button *ngIf="!isedit" [cModalToggle]="verticallyCenteredModal.id" cButton type="submit" color="primary" (click)="saveNewData()" >Done</button>
+                      <button [cModalToggle]="verticallyCenteredModal.id" cButton type="submit" color="primary"
+        *ngIf="isedit" (click)="saveEditData()"  >Edit</button>
                     </c-modal-footer>
           </form>
     </c-modal-body>
   </c-modal> 
+
+
+   <!-- delete modal -->
+<c-modal #delete alignment="center" id="delete">
+  <c-modal-header>
+    <h5 cModalTitle>Delete!</h5>
+    <button [cModalToggle]="delete.id" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    Woohoo, you are Deleting this Set .
+  </c-modal-body>
+  <c-modal-footer>
+    <button [cModalToggle]="delete.id" cButton color="secondary">
+      Close
+    </button>
+    <button cButton color="primary" (click)="delete1()" [cModalToggle]="delete.id">Delete</button>
+  </c-modal-footer>
+</c-modal>

@@ -10,14 +10,14 @@ export class AdminUserComponent implements OnInit {
 
   public liveDemoVisible = false;
   data:any =[
-    {"id":1, "firstName":'Vikash Kumar', "lastName": "Singhania", "email": "vk112004@gmail.com", "group":["Admin","member"], "status":"Active" },
-    {"id":2, "firstName":'Archan', "lastName": "Kumari", "email": "vk112004@gmail.com", "group":["Admin","member"], "status":"Active" },
+    {"id":1, "firstName":'Vikash ', "lastName": "Singhania", "email": "vk112004@gmail.com", "group":["Admin","member"], "status":"Active" },
+    {"id":2, "firstName":'Archana', "lastName": "Kumari", "email": "vk112004@gmail.com", "group":["Admin","member"], "status":"Active" },
     {"id":3, "firstName":'Kundan', "lastName": "Yadav", "email": "vk112004@gmail.com", "group":["Admin","member"], "status":"Active" },
     {"id":4, "firstName":'Sumit', "lastName": "Yadav", "email": "vk112004@gmail.com", "group":["Admin","member"], "status":"Active"  },
     {"id":5, "firstName":'Mayank', "lastName": "Podar", "email": "vk112004@gmail.com", "group":["Admin","member"], "status":"Active"  },
-    {"id":6, "firstName":'Reashmi', "lastName": "Verma", "email": "vk112004@gmail.com", "group":["Admin","member"], "status":"Active" },
+    {"id":6, "firstName":'Harendra', "lastName": "Mahto", "email": "vk112004@gmail.com", "group":["Admin","member"], "status":"Active" },
     {"id":7, "firstName":'Anshu', "lastName": "Shekhar", "email": "vk112004@gmail.com", "group":["Admin","member"], "status":"Active" },
-    {"id":8, "firstName":'Sinu', "lastName": "Maurya", "email": "vk112004@gmail.com", "group":["Admin","member"], "status":"Active"  },
+    {"id":8, "firstName":'Sinu', "lastName": "kumari", "email": "vk112004@gmail.com", "group":["Admin","member"], "status":"Active"  },
   ];
 
   form: FormGroup;

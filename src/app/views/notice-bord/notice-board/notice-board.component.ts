@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {NoticeBoardService} from '../../../services/noticeBoard/notice-board.service';
 
 @Component({
   selector: 'app-notice-board',
@@ -8,20 +9,46 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 })
 export class NoticeBoardComponent implements OnInit {
 
+  editId:any;
   form: FormGroup;
   id:any;
-  constructor(private fb: FormBuilder,) {
+  constructor(private fb: FormBuilder,
+    private noticeBoardService:NoticeBoardService) {
     this.form = this.fb.group({
       notice:new FormControl(''),
       status:new FormControl(''),
      });
    }
   ngOnInit(): void {
+    this.getNoticeBoardData();
   }
 
-  saveNewData(){
-     console.log('all tdata',this.form.value);
+  getNoticeBoardData(){
+    this.noticeBoardService.getList().subscribe(res=>{
+      console.log('res',res);
+      this.editId = res.data[0]._id;
+      const patchData= {
+        notice:res.data[0].notice,
+        status:res.data[0].status,
+      }
+      this.form.patchValue(patchData);
+      // console.log(' this.editId ', this.editId );
+
+    })
   }
+
+  saveEditData(){
+    const patchData = { "notice":this.form.value.notice, "status":this.form.value.status };
+    // console.log('patchdata',patchData);
+this.noticeBoardService.updateApi(this.editId,patchData).subscribe(res=>{
+  console.log(res)
+  if(res.success == true){
+    this.getNoticeBoardData();
+    alert("Data Updated");
+  }
+})
+  }
+
 
   cancelData(){
     

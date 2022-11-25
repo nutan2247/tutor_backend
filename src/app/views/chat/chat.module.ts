@@ -33,10 +33,12 @@ import {
 } from '@coreui/angular';
 import { IconModule } from '@coreui/icons-angular';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ChatboxComponent } from './chat/chatbox/chatbox.component';
 
 @NgModule({
   declarations: [
-    ChatComponent
+    ChatComponent,
+    ChatboxComponent
   ],
   imports: [
     CommonModule,

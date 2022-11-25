@@ -16,21 +16,24 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let item of details">
-          <th scope="row">{{item.id}}</th>
-          <td><img src="{{item.photo}}" width="60" height="80" priority></td>
-          <td>{{item.name}}</td>
-          <td>{{item.contactNo}}</td>
-          <td>{{item.totalChat }}</td>
-          <td>{{item.newChat }}</td>
+        <tr *ngFor="let item of chatList; let i=index">
+          <th scope="row">{{i+1}}</th>
+          <td><img src="{{item.Image}}" width="60" height="80" priority></td>
+          <td>{{item.student_name}}</td>
+          <td>{{item.contact_no}}</td>
+          <td>{{item.no_of_chat }}</td>
+          <td>{{item.new_chat }}</td>
           <td>
             <!-- <button cButton color="warning" [cModalToggle]="modalXl.id" 
             (click)="edit(item)" >Edit</button> -->
-            <button cButton color="success">Reply</button>
+            <button cButton color="success" (click)="chatBox(item)">Reply</button>
             <button cButton color="danger">Delete</button>
           </td>
 
         </tr>
       </tbody>
     </table>
+     <!-- <svg cIcon name="cil-arrow-thick-right" title="" size="3xl"></svg> -->
+   
+
   </c-card-body>
