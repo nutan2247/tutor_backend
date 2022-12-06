@@ -35,7 +35,7 @@ export class ChatService {
 
   
    chatMessangerList(data: any): Observable<any>{
-    return this.http.post<any>(featureInterface.ChatMessageList, data);
+    return this.http.get<any>(`${featureInterface.ChatMessageList}/${data}`);
    }
 
    sendMessageAdmin(data: any): Observable<any>{
