@@ -26,7 +26,7 @@
             <tbody>
             <tr *ngFor="let list of listData; let i=index">
              <td>{{i+1}}</td>
-            <td>{{list.name}}</td>
+            <td>{{list.topic_name}}</td>
              <td>{{list.status}}</td>
             <td>
                 <button color="warning"  [cModalToggle]="verticallyCenteredModal.id" cButton (click)="edit(list)" >Edit</button>
@@ -52,13 +52,56 @@
     <c-modal-body>
       <!-- (ngSubmit)="onSubmit()" -->
       <form [formGroup]="form" >
-          <div class="mb-3">
+
+
+        <div class="mb-3">
+          <label cLabel for="exampleFormControlclass">Class</label><br>
+          <select cSelect id="exampleFormControlclass" class="form-control" formControlName='class' (change)="onSelected()" >
+            <option  [selected]="true">Select</option>
+            <option  *ngFor="let classlist of classes" [value]="classlist._id"  >{{classlist.class_name}}</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label cLabel for="exampleFormControlSubject">Subject</label><br>
+          <select cSelect id="exampleFormControlSubject" class="form-control" formControlName='Subject' (change)="onSelectedSubject()">
+            <option  [selected]="true">Select Class</option>
+            <option  *ngFor="let subject of subjectData" [value]="subject.subject_id">{{subject.name
+            }}</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label cLabel for="exampleFormControlchapter">Chapter</label><br>
+          <select cSelect id="exampleFormControlchapter" class="form-control" formControlName='chapter'>
+            <option [disabled]="true" [selected]="true">Select Class</option>
+            <option  *ngFor="let list of chapters" [value]="list._id
+            ">{{list.chapter_title}}</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
           <label cLabel for="exampleFormControlInput1">Topic's Name</label><br>
           <input id="exampleFormControlInput1"
                      placeholder="Enter Topic Name"
                      type="text"
                      formControlName='name' />
           </div>
+
+        <div class="mb-3">
+          <label cLabel for="exampleFormControlSubjectvdo">Upload Video</label><br>
+          <input cFormControl id="exampleFormControlSubjectvdo"
+                     type="text"  
+                     formControlName='uploadvdo' />
+          </div>
+          <div class="mb-3">
+            <label cLabel for="exampleFormControlSubjectpdf">Upload PDF</label><br>
+            <input cFormControl id="exampleFormControlSubjectpdf"
+                       type="file" (change)="onFileChangePdf($event)" 
+                       formControlName='uploadpdf' />
+            </div>
+
+         
 
                     <div class="mb-3">
                         <label cLabel for="exampleFormControlStatus">Status</label><br>

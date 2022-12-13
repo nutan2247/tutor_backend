@@ -82,8 +82,8 @@ this.classService.getClass().subscribe(res => {
   }
 
   saveNewData(){
-    // alert('I am in progress, thanku');
-   const addData = {"subject_name":this.form.value.subject_name,"admin_id":this.form.value.class,"sub_status":this.form.value.status,"sub_date":new Date}
+    // alert('I am in progress, thanku');{"class_id":"638f1a59a34d75d34cf2f30a","subject_name":"english","status":"active"}  "sub_date":new Date
+   const addData = {"name":this.form.value.subject_name,"class_id":this.form.value.class,"status":this.form.value.status};
     console.log('addData detail',addData);
    this.subjectService.addList(addData).subscribe(res => {
     // console.log('Add result result',res);
@@ -114,16 +114,18 @@ this.classService.getClass().subscribe(res => {
   }
 
   edit(data:any){
+    // console.log('data',data);
     this.isedit = true;
     this.getClass();
-    this.editIdi = data._id;
-console.log('data',data);
-const datas = {subject_name:data.subject_name,  status: data.sub_status, class:data.admin_id};
+    this.editIdi = data.subject_id;
+const datas = {subject_name:data.name,  status: data.status, class:data.class_name};
 this.form.patchValue(datas);
 
   }
+
   saveEditData(){
- const patchData = {"subject_name":this.form.value.subject_name,"admin_id":this.form.value.class,"sub_status":this.form.value.status,"sub_date":new Date};
+ const patchData =  {"subject_name":this.form.value.subject_name,"class_id":this.form.value.class,"status":this.form.value.status};
+ console.log('this.editId List Api Error',this.editIdi);
  this.subjectService.updateApi(this.editIdi,patchData).subscribe(res => {
   if(res.success == true){
     this.getData();
@@ -136,7 +138,7 @@ this.form.patchValue(datas);
   }
 
   deleteId(param:any){
-    this.deleteIdi = param._id
+    this.deleteIdi = param.subject_id;
     console.log('delete data',param);
       }
     

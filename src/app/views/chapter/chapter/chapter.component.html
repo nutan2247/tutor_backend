@@ -29,14 +29,13 @@
                   placeholder="Chapter title" type="text" />
               </td>
              
-              <td> <select cSelect class="form-control">
-                  <option [disabled]="true" [selected]="true">Select class</option>
-                  <option value="">6th</option>
-                  <option value="">7th</option>
-                  <option value="">8th</option>
-                  <option value="">9th</option>
-                  <option value="">10</option>
-                </select></td>
+              <td>
+                 
+                <select cSelect class="form-control" >
+                  <option [disabled]="true" [selected]="true">Select Class</option>
+                  <option  *ngFor="let class of classes" [value]="class._id">{{class.class_name}}</option>
+                </select>
+              </td>
             
             </tr>
   
@@ -59,7 +58,7 @@
     <th scope="col">Class</th>
     <th scope="col">Subject</th>
     <th scope="col">Language</th>
-    <th scope="col">Total Topics</th>
+    <!-- <th scope="col">Total Topics</th> -->
     <th scope="col">Status</th>
      <th scope="col">Action</th>
 </tr>
@@ -68,10 +67,10 @@
     <tr *ngFor="let list of data; let i=index">
       <td>{{i+1}}</td>
     <td>{{list.chapter_title}}</td>
-    <td>{{list.admin_id}}th</td>
-    <td>{{list.subject}}</td>
+    <td>{{list.class_name}}</td>
+    <td>{{list.name}}</td>
     <td>{{list.language}}</td>
-    <td>{{list.total_topics}}</td>
+    <!-- <td>{{list.total_topics}}</td> -->
      <td>{{list.status}}</td>
     <td>
         <button color="warning"  [cModalToggle]="verticallyCenteredModal.id" cButton (click)="edit(list)" >Edit</button>
@@ -97,13 +96,7 @@
         <c-modal-body>
           <!-- (ngSubmit)="onSubmit()" -->
           <form [formGroup]="form" >
-              <div class="mb-3">
-              <label cLabel for="exampleFormControlSubjectName">Chapter Title</label><br>
-              <input cFormControl id="exampleFormControlSubjectName"
-                         placeholder="Enter Chapter Title Name"
-                         type="text"
-                         formControlName='chapterTitle' />
-              </div>
+            
     
               <!-- <div class="mb-3">
                 <label cLabel for="exampleFormControlClass">Class</label><br>
@@ -113,7 +106,7 @@
                            formControlName='class' />
                 </div> -->
 
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                   <label cLabel for="exampleFormControlClass">Class</label><br>
                   <select cSelect id="exampleFormControlClass" class="form-control" formControlName='class'>
                     <option [disabled]="true" [selected]="true">Select</option>
@@ -122,23 +115,41 @@
                     <option value="8">8th</option>
                     <option value="9">9th</option>
                   </select>
+                </div> -->
+                <div class="mb-3">
+                  <label cLabel for="exampleFormControlclass">Class</label><br>
+                  <select cSelect id="exampleFormControlclass" class="form-control" formControlName='class' (change)="onSelected()" >
+                    <option  [selected]="true">Select</option>
+                    <option  *ngFor="let classlist of classes" [value]="classlist._id"  >{{classlist.class_name}}</option>
+                  </select>
                 </div>
 
                 <div class="mb-3">
-                    <label cLabel for="exampleFormControlSubject">Subject</label><br>
-                    <input cFormControl id="exampleFormControlSubject"
-                               placeholder="Enter Subject Name"
-                               type="text"
-                               formControlName='Subject' />
+                  <label cLabel for="exampleFormControlSubject">Subject</label><br>
+                  <select cSelect id="exampleFormControlSubject" class="form-control" formControlName='Subject'>
+                    <option [disabled]="true" [selected]="true">Select Class</option>
+                    <option  *ngFor="let subject of subjectData" [value]="subject.subject_id">{{subject.name}}</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label cLabel for="exampleFormControlSubjectName">Chapter Title</label><br>
+                  <input cFormControl id="exampleFormControlSubjectName"
+                             placeholder="Enter Chapter Title Name"
+                             type="text"
+                             formControlName='chapterTitle' />
+                  </div>
+
+    
+                    <div class="mb-3">
+                      <label cLabel for="exampleFormControlBoard">Board</label><br>
+                      <select cSelect id="exampleFormControlBoard" class="form-control" formControlName='board'>
+                        <option [disabled]="true" [selected]="true">Select</option>
+                        <option value="CBSE">CBSE</option>
+                        <option value="BSEB">BSEB</option>
+                      </select>
                     </div>
 
-                    <!-- <div class="mb-3">
-                        <label cLabel for="exampleFormControllanguage">Language</label><br>
-                        <input cFormControl id="exampleFormControllanguage"
-                                   placeholder="Enter Laungage"
-                                   type="text"
-                                   formControlName='language' />
-                        </div> -->
                         <div class="mb-3">
                           <label cLabel for="exampleFormControllanguage">Language</label><br>
                           <select cSelect id="exampleFormControllanguage" class="form-control" formControlName='language'>
@@ -148,13 +159,13 @@
                           </select>
                         </div>
 
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label cLabel for="exampleFormControltotalTopics">Total Topics</label><br>
                             <input cFormControl id="exampleFormControltotalTopics"
                                        placeholder="Enter Total Topics"
                                        type="number"
                                        formControlName='totalTopics' />
-                            </div>
+                            </div> -->
     
                         <div class="mb-3">
                             <label cLabel for="exampleFormControlStatus">Status</label><br>

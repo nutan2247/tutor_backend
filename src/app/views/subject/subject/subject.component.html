@@ -29,10 +29,10 @@
             <tbody>
             <tr *ngFor="let list of subjectData; let i=index">
               <td>{{i+1}}</td>
-            <td>{{list.subject_name}}</td>
-            <td>{{list.admin_id}}</td>
+            <td>{{list?.name}}</td>
+            <td>{{list?.class_name}}</td>
             <!-- <td>{{list.department_name}}</td> -->
-             <td>{{list.sub_status}}</td>
+             <td>{{list?.status}}</td>
             <td>
                 <button color="warning"  [cModalToggle]="verticallyCenteredModal.id" cButton (click)="edit(list)" >Edit</button>
                 <button cButton [cModalToggle]="delete.id" (click)="deleteId(list)"  >delete</button>
@@ -68,8 +68,8 @@
             <div class="mb-3">
               <label cLabel for="exampleFormControlStatus">Class</label><br>
               <select cSelect id="exampleFormControlStatus" class="form-control" formControlName='class'>
-                <option [disabled]="true" [selected]="true">Select Class</option>
-                <option  *ngFor="let class of classes" [value]="class.admin_id">{{class.class_name}}</option>
+                <option  [selected]="true">Select Class</option>
+                <option  *ngFor="let class of classes" [value]="class._id">{{class.class_name}}</option>
               </select>
             </div>
 

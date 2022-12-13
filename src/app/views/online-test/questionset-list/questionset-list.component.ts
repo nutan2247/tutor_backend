@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import {SetListService} from '../../../services/setList/set-list.service';
 import {ClassesService} from '../../../services/classes/classes.service';
 import { CommonService } from 'src/app/services/common/common.service';
+import { SubjectService } from 'src/app/services/subject/subject.service';
 @Component({
   selector: 'app-questionset-list',
   templateUrl: './questionset-list.component.html',
@@ -12,6 +13,7 @@ export class QuestionsetListComponent implements OnInit {
 
   public liveDemoVisible = false;
   classes:any[]=[];
+  subjectData:any[]=[];
   deleteIdi:any;
   editIdi:any;
   isedit:boolean=false;
@@ -30,10 +32,11 @@ export class QuestionsetListComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private setlistService:SetListService,
     private classService:ClassesService,
-    private commonService:CommonService
+    private commonService:CommonService,
+    private subjectService:SubjectService
     ) {
     this.form = this.fb.group({
-      chapter:new FormControl(''),
+      // chapter:new FormControl(''),
       name:new FormControl(''),
       language:new FormControl(''),
       class:new FormControl(''),
@@ -41,7 +44,7 @@ export class QuestionsetListComponent implements OnInit {
       totalTime:new FormControl(''),
       markPerQuestion:new FormControl(''),
       totalQuestion:new FormControl(''),
-      vdoSolution:new FormControl(''),
+      // vdoSolution:new FormControl(''),
       pdfsolution:new FormControl(''),
       status:new FormControl(''),
      });
@@ -53,9 +56,22 @@ export class QuestionsetListComponent implements OnInit {
     this.getApiData();
   }
 
+  // getClass(){
+  //   this.classService.getClass().subscribe(res => {
+  //     // console.log('class Api hit',res);
+  //     if(res.success == true){
+  //       this.classes = res.data;
+  //       console.log('class Api hit',this.classes);
+  //     }
+  //   },
+  //   (err)=>{
+  //     console.log('Topic List Api Error',err.error);
+  //     this.commonService.tokenDelete(err.error.msg);
+  //   })
+  //     }
+
   getClass(){
     this.classService.getClass().subscribe(res => {
-      // console.log('class Api hit',res);
       if(res.success == true){
         this.classes = res.data;
         console.log('class Api hit',this.classes);
@@ -67,6 +83,29 @@ export class QuestionsetListComponent implements OnInit {
     })
       }
 
+      onSelected(){
+        console.log('select data class',this.form.value.class);
+        
+        this.subjectService.getData().subscribe(res => {
+          console.log('Total data Subject Api result',res);
+          if(res.success == true){
+            const data= res.data.filter((x:any)=> x.class_id==this.form.value.class);
+            if(data.length==0){
+              this.subjectData=[];
+              alert('No subject for this Class,Please Select Other Class');
+            }else{
+              this.subjectData = data;
+            }
+          }
+        },
+        (err)=>{
+          console.log('Topic List Api Error',err.error);
+          this.commonService.tokenDelete(err.error.msg);
+        })
+          }
+
+  
+
   getApiData(){
     this.setlistService.getData().subscribe(res=> {
       console.log('result',res);
@@ -76,7 +115,7 @@ export class QuestionsetListComponent implements OnInit {
 
   initForm(){
     this.form = this.fb.group({
-      chapter:new FormControl(''),
+      // chapter:new FormControl(''),
       name:new FormControl(''),
       language:new FormControl(''),
       class:new FormControl(''),
@@ -84,7 +123,7 @@ export class QuestionsetListComponent implements OnInit {
       totalTime:new FormControl(''),
       markPerQuestion:new FormControl(''),
       totalQuestion:new FormControl(''),
-      vdoSolution:new FormControl(''),
+      // vdoSolution:new FormControl(''),
       pdfsolution:new FormControl(''),
       status:new FormControl(''),
      });
@@ -98,9 +137,10 @@ this.initForm();
 
   saveNewData(){
     console.log('reactive form',this.form.value);
-    const apidata = { "chapter_name":this.form.value.chapter, "admin_id":this.form.value.class, "subject":this.form.value.subject, "qps_title":this.form.value.name, "qps_time":this.form.value.totalTime, "qps_mark":this.form.value.markPerQuestion, "no_of_ques":this.form.value.totalQuestion, "qps_language":this.form.value.language, "qps_date":new Date, "solution_pdf":this.form.value.pdfsolution, "qps_status":this.form.value.status};
-    // console.log('new data set',apidata);
-    this.setlistService.setList(apidata).subscribe(res => {
+    const formData={"class_id":this.form.value.class,"subject_id":this.form.value.subject,"qps_title":this.form.value.name,"qps_time":this.form.value.totalTime,"qps_mark":this.form.value.markPerQuestion,"no_of_ques":this.form.value.totalQuestion,"qps_language":this.form.value.language,"qps_date":new Date,"solution_pdf":this.form.value.pdfsolution,"qps_status":this.form.value.status};
+    console.log('all form data',formData);
+
+    this.setlistService.setList(formData).subscribe(res => {
       console.log('all data',res);
       if(res.success == true){
         this.getApiData();
