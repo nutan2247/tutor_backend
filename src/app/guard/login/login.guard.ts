@@ -8,7 +8,7 @@ import { LoginService } from 'src/app/services/login/login.service';
 })
 export class LoginGuard implements CanActivate {
 
-  constructor(private loginService:LoginService,private route:Router){
+  constructor(private loginService:LoginService,private router:Router){
 
   }
   // canActivate(
@@ -22,6 +22,7 @@ export class LoginGuard implements CanActivate {
       // alert(this.loginService.isLoggedIn());
       // return false;
       if(this.loginService.isLoggedIn()){
+        this.router.navigate(['./dashboard']);
             return false;
           }else{
             return true;

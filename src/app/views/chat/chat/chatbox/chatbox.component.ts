@@ -30,7 +30,8 @@ export class ChatboxComponent implements OnInit {
 
   getchatList(){
     const data = {"student_id":this.studentId};
-    this.chatService.chatMessangerList(data).toPromise().then(res=>{
+    this.chatService.chatMessangerList(this.studentId).toPromise().then(res=>{
+      console.log('all data chat list api',res);
       if(res.success==true){
           this.chatList=res.data;
          }
@@ -66,12 +67,12 @@ export class ChatboxComponent implements OnInit {
 
   sendMessage(){
 console.log('form inputr maeds',this.form.value);
-const data = { student_id:this.studentId, reply_to:"", message:"", "reply_message":this.form.value.newMessage ,user:"In" };
-console.log('send dat inputr maeds',data);
+const data = { student_id:this.studentId, reply_to:"", message:this.form.value.newMessage };
+// console.log('send dat inputr maeds',data);
 this.chatService.sendMessageAdmin(data).subscribe(res=>{
   console.log('send data api',res)
   if(res.success==true){
-    // this.getchatList();
+    this.getchatList();
     this.initForm();
   }
 })

@@ -9,8 +9,8 @@
           <th scope="col">Image.</th>
           <th scope="col">Student Name</th>
           <th scope="col">Contact No.</th>
-          <th scope="col">No. of Chat</th>
-          <th scope="col">New Chat </th>
+          <!-- <th scope="col">No. of Chat</th>
+          <th scope="col">New Chat </th> -->
           <th scope="col">Action </th>
         </tr>
       </thead>
@@ -18,11 +18,11 @@
       <tbody>
         <tr *ngFor="let item of chatList; let i=index">
           <th scope="row">{{i+1}}</th>
-          <td><img src="{{item.Image}}" width="60" height="80" priority></td>
-          <td>{{item.student_name}}</td>
-          <td>{{item.contact_no}}</td>
-          <td>{{item.no_of_chat }}</td>
-          <td>{{item.new_chat }}</td>
+          <td><img src="{{item.studentInfo[0]?.student_photo}}" width="60" height="80" priority></td>
+          <td>{{item.studentInfo[0]?.name}}</td>
+          <td>{{item.studentInfo[0]?.mobile_number}}</td>
+          <!-- <td>{{item.no_of_chat }}</td>
+          <td>{{item.new_chat }}</td> -->
           <td>
             <!-- <button cButton color="warning" [cModalToggle]="modalXl.id" 
             (click)="edit(item)" >Edit</button> -->

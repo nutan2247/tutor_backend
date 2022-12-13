@@ -1,4 +1,5 @@
  const domain = 'http://localhost:3000/';
+// const domain = 'http://18.117.227.46:3000/';
 
  export let allClass = domain+'admin/class/list';
 
@@ -62,11 +63,11 @@ export let noticeBoardAdd = domain+'admin/notice/add';
 export let noticeBoardUpdate = domain+'admin/notice/update';
 export let noticeBoardDelete = domain+'admin/notice/delete';
 // chat
-export let chatlist = domain+'admin/chat/list';
+export let chatlist = domain+'admin/chat/getalllist';
 export let chatAdd = domain+'admin/chat/add';
 export let chatUpdate = domain+'admin/chat/update';
 export let chatDelete = domain+'admin/chat/delete';
 // chatMessenger
 export let chatAdminPost = domain+'admin/chat/admin';
-export let ChatMessageList = domain+'admin/chating/list';
+export let ChatMessageList = domain+'admin/chat/list';
 

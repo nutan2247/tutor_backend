@@ -86,7 +86,7 @@ export class OnlineTestComponent implements OnInit {
     const correctAnswer = this.form.value.answer;
     console.log('correct answer', correctAnswer);
     const data ={ "set":this.form.value.set, "question":this.form.value.question, 
-    "options": [ {"option1":this.form.value.option1,"correct": "false"}, {"option2":this.form.value.option2,"correct": "false"}, {"option3":this.form.value.option3,"correct": "false"}, {"option4":this.form.value.option4,"correct": "false"} ] };
+    "options": [ {"option":this.form.value.option1,"correct": "false"}, {"option":this.form.value.option2,"correct": "false"}, {"option":this.form.value.option3,"correct": "false"}, {"option":this.form.value.option4,"correct": "false"} ] };
 
       data.options[this.form.value.answer].correct = "true";
     console.log('correct dsata answer', data);
@@ -125,7 +125,7 @@ export class OnlineTestComponent implements OnInit {
     this.getSetList();  // for section setlist option
     const correctAnswer = data.options.findIndex((res:any) => res.correct == 'true');
     console.log('correct answre',correctAnswer);
-    const apidata ={ set:data.set, question:data.question, answer:correctAnswer, option1:data.options[0].option1, option2:data.options[1].option2, option3:data.options[2].option3,option4:data.options[3].option4}
+    const apidata ={ set:data.set, question:data.question, answer:correctAnswer, option1:data.options[0].option, option2:data.options[1].option, option3:data.options[2].option,option4:data.options[3].option}
     this.isedit= true;
     this.form.patchValue(apidata);
 // this.form.setValue(data);
@@ -135,7 +135,7 @@ export class OnlineTestComponent implements OnInit {
 const correctAnswer = this.form.value.answer;
 console.log('correct answer', correctAnswer);
 const data ={ "set":this.form.value.set, "question":this.form.value.question, 
-"options": [ {"option1":this.form.value.option1,"correct": "false"}, {"option2":this.form.value.option2,"correct": "false"}, {"option3":this.form.value.option3,"correct": "false"}, {"option4":this.form.value.option4,"correct": "false"} ] };
+"options": [ {"option":this.form.value.option1,"correct": "false"}, {"option":this.form.value.option2,"correct": "false"}, {"option":this.form.value.option3,"correct": "false"}, {"option":this.form.value.option4,"correct": "false"} ] };
 
   data.options[this.form.value.answer].correct = "true";
 console.log('correct dsata answer', data);

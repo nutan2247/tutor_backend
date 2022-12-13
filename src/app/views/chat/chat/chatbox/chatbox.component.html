@@ -6,7 +6,7 @@
       <div class="mesgs">
         <div class="msg_history">
           <li class="message" *ngFor="let list of chatList">
-            <div #incoming_msg *ngIf="list.user == 'out'">
+            <div #incoming_msg *ngIf="list.isAdmin == false">
               <div class="incoming_msg">
                 <div class="incoming_msg_img">
                   <img
@@ -25,10 +25,10 @@
             </div>
 
 
-            <div #outgoing_msg *ngIf="list.user == 'In'"> 
+            <div #outgoing_msg *ngIf="list.isAdmin == true"> 
               <div class="outgoing_msg">
                 <div class="sent_msg">
-                    <p>{{list.reply_message}}</p>
+                    <p>{{list.message}}</p>
                   <!-- <p>hi vikash</p> -->
                 </div>
               </div>

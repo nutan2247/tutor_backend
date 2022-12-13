@@ -124,7 +124,7 @@ export class ChatComponent implements OnInit {
   getchatList(){
     // this.chatList = 
     this.chatService.getList().subscribe(res=>{
-      console.log('resut of chat list api',res);
+      console.log('resut of all student chat list api',res);
       if(res.success==true){
         this.chatList = res.data;
         console.log('his.chatList',this.chatList);
@@ -141,7 +141,7 @@ export class ChatComponent implements OnInit {
 
   chatBox(param:any){
     console.log('param data',param)
-    this.router.navigate(['./chat/',param.student_id]);
+    this.router.navigate(['./chat/',param.studentInfo[0]?._id]);
   }
 
 

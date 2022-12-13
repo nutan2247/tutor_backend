@@ -58,7 +58,7 @@
     <thead>
     <tr>
     <th scope="col">S.No.</th>
-    <th scope="col">Chapter</th>
+    <!-- <th scope="col">Chapter</th> -->
     <th scope="col">Name</th>
     <th scope="col">Language</th>
     <th scope="col">Class</th>
@@ -71,7 +71,7 @@
     <tbody>
     <tr *ngFor="let list of apidata; let i=index">
         <td>{{i+1}}</td>
-    <td>{{list.chapter_name}}</td>
+    <!-- <td>{{list.chapter_name}}</td> -->
     <td>{{list.qps_title}}</td>
     <td>{{list.qps_language}}</td>
     <td>{{list.admin_id}}</td>
@@ -108,15 +108,46 @@
             <table borderless cTable>
                 <tbody>
                   <tr>
-                    <td >
-                        <div class="mb-3">
-                            <label cLabel for="exampleFormControlChapter">Chapter Name</label><br>
-                            <input cFormControl id="exampleFormControlChapter"
-                                       placeholder=""
-                                       type="text"
-                                       formControlName='chapter' />
-                            </div>
+                    <td>
+                        <!-- <div class="mb-3">
+                            <label cLabel for="exampleFormControlClass">Class</label><br>
+                            <select cSelect id="exampleFormControlClass" class="form-control" formControlName='class'>
+                              <option [disabled]="true" [selected]="true">Select</option>
+                              <option  *ngFor="let class of classes" [value]="class.admin_id">{{class.class_name}}</option>
+                            </select>
+                          </div> -->
+                          <div class="mb-3">
+                            <label cLabel for="exampleFormControlclass">Class</label><br>
+                            <select cSelect id="exampleFormControlclass" class="form-control" formControlName='class' (change)="onSelected()" >
+                              <option  [selected]="true">Select</option>
+                              <option  *ngFor="let classlist of classes" [value]="classlist._id"  >{{classlist.class_name}}</option>
+                            </select>
+                          </div>
                     </td>
+                    <td>
+                      <!-- <div class="mb-3">
+                        <label cLabel for="exampleFormControlLanguage">Subject</label><br>
+                        <select cSelect id="exampleFormControlLanguage" class="form-control" formControlName='subject'>
+                          <option value="hindi">Hindi</option>
+                          <option value="english">English</option>
+                          <option value="math">Math</option>
+                          <option value="science">Science</option>
+                          <option value="sanskrit">Sanskrit</option>
+
+                        </select>
+                      </div> -->
+
+                      <div class="mb-3">
+                        <label cLabel for="exampleFormControlSubject">Subject</label><br>
+                        <select cSelect id="exampleFormControlSubject" class="form-control" formControlName='subject'>
+                          <option  [selected]="true">Select Class</option>
+                          <option  *ngFor="let subject of subjectData" [value]="subject.subject_id">{{subject.name}}</option>
+                        </select>
+                      </div>
+                       
+                    </td>
+                </tr>
+                  <tr>
                     <td>
                         <div class="mb-3">
                             <label cLabel for="exampleFormControlName">Question Set Name</label><br>
@@ -126,17 +157,27 @@
                                        formControlName='name' />
                             </div>
                     </td>
+                    <!-- <td >
+                      <div class="mb-3">
+                          <label cLabel for="exampleFormControlChapter">Chapter Name</label><br>
+                          <input cFormControl id="exampleFormControlChapter"
+                                     placeholder=""
+                                     type="text"
+                                     formControlName='chapter' />
+                          </div>
+                  </td> -->
+                  <td>
+                    <div class="mb-3">
+                        <label cLabel for="exampleFormControlTotaltime">Total Time</label><br>
+                        <input cFormControl id="exampleFormControlTotaltime"
+                                   placeholder="Please Enter Time In Minutes"
+                                   type="number"
+                                   formControlName='totalTime' />
+                        </div>
+                </td>
                 </tr>
                 <tr>
-                    <td>
-                        <div class="mb-3">
-                            <label cLabel for="exampleFormControlTotaltime">Total Time</label><br>
-                            <input cFormControl id="exampleFormControlTotaltime"
-                                       placeholder=""
-                                       type="number"
-                                       formControlName='totalTime' />
-                            </div>
-                    </td>
+                   
                     <td>
                         <div class="mb-3">
                             <label cLabel for="exampleFormControlMark">Mark /Question</label><br>
@@ -146,33 +187,17 @@
                                        formControlName='markPerQuestion' />
                             </div>
                     </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="mb-3">
-                            <label cLabel for="exampleFormControlClass">Class</label><br>
-                            <select cSelect id="exampleFormControlClass" class="form-control" formControlName='class'>
-                              <option [disabled]="true" [selected]="true">Select</option>
-                              <option  *ngFor="let class of classes" [value]="class.admin_id">{{class.class_name}}</option>
-                            </select>
-                          </div>
-                    </td>
                     <td>
                       <div class="mb-3">
-                        <label cLabel for="exampleFormControlLanguage">Subject</label><br>
-                        <select cSelect id="exampleFormControlLanguage" class="form-control" formControlName='subject'>
-                          <!-- <option [disabled]="true" [selected]="true">Select</option> -->
-                          <option value="hindi">Hindi</option>
-                          <option value="english">English</option>
-                          <option value="math">Math</option>
-                          <option value="science">Science</option>
-                          <option value="sanskrit">Sanskrit</option>
-
-                        </select>
-                      </div>
-                       
-                    </td>
+                             <label cLabel for="exampleFormControltotalTotalQues">Number Of Questions in Set</label><br>
+                             <input cFormControl id="exampleFormControltotalTotalQues"
+                                        placeholder=""
+                                        type="number"
+                                        formControlName='totalQuestion' />
+                             </div>
+                   </td>
                 </tr>
+               
                 <tr>
                     <td>
                         <div class="mb-3">
@@ -184,7 +209,7 @@
                             </select>
                           </div>
                     </td>
-                    <td>
+                    <!-- <td>
                         <div class="mb-3">
                             <label cLabel for="exampleFormControltotalSolutionVdo">Solution Video</label><br>
                             <input cFormControl id="exampleFormControltotalSolutionVdo"
@@ -192,27 +217,20 @@
                                        type="text"
                                        formControlName='vdoSolution' />
                             </div>
+                    </td> -->
+                    <td>
+                      <div class="mb-3">
+                        <label cLabel for="exampleFormControltotalPdf">Solution PDF</label><br>
+                        <input cFormControl id="exampleFormControltotalPdf"
+                                   placeholder=""
+                                   type="file"
+                                   formControlName='pdfsolution' />
+                        </div>
                     </td>
                 </tr>
                 <tr>
-                  <td>
-                     <div class="mb-3">
-                            <label cLabel for="exampleFormControltotalTotalQues">Number Of Questions in Set</label><br>
-                            <input cFormControl id="exampleFormControltotalTotalQues"
-                                       placeholder=""
-                                       type="number"
-                                       formControlName='totalQuestion' />
-                            </div>
-                  </td>
-                  <td>
-                    <div class="mb-3">
-                      <label cLabel for="exampleFormControltotalPdf">Solution PDF</label><br>
-                      <input cFormControl id="exampleFormControltotalPdf"
-                                 placeholder=""
-                                 type="file"
-                                 formControlName='pdfsolution' />
-                      </div>
-                  </td>
+                 
+                 
                 </tr>
                 <tr>
                     <td>
