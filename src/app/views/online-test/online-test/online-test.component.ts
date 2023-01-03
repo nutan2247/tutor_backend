@@ -12,11 +12,13 @@ import { CommonService } from 'src/app/services/common/common.service';
 export class OnlineTestComponent implements OnInit {
 
   public liveDemoVisible = false;
+  setdata:any[]=[];
+  setid:any;
   setList:any[]=[];
   deleteIdi:any;
   editIdi:any;
   isedit:boolean=false;
-  questionlists:any[]=[];
+  questionlists:any;
   // data:any =[
   //   {"id":1,"question":'अगर किसी पिंड के लिए वेग समय ग्राफ एक सीधी रेखा नही हैं , तब बताया जाता हैं',"set":'SCIENCE -IX-OBJECIVE TEST-1(PHY-1,CHEM-1,BIO-1&2)',"class":'IXth',"language":'Hindi', "status":"Active" },
   //   {"id":2,"question":'अगर किसी पिंड के लिए वेग समय ग्राफ एक सीधी रेखा नही हैं , तब बताया जाता हैं',"set":'SCIENCE -IX-OBJECIVE TEST-1(PHY-1,CHEM-1,BIO-1&2)',"class":'IXth',"language":'Hindi', "status":"Active" },
@@ -46,7 +48,14 @@ export class OnlineTestComponent implements OnInit {
    }
   ngOnInit(): void {
     // this.initForm();
-    this.getQuestionList();
+    this.getSetListDropDown();
+    // this.getQuestionList();
+  }
+
+  selectChangeHandler(e:any){
+    this.setid = e.target.value;
+    console.log('select setList data',this.setid);
+    this.getQuestionList(this.setid);
   }
 
   getSetList(){
@@ -57,11 +66,29 @@ export class OnlineTestComponent implements OnInit {
     })
   }
 
-  getQuestionList(){
-    this.questionListService.getList().subscribe(res => {
-      console.log('result of QuestionList',res);
+  getSetListDropDown(){
+    this.setlistService.getData().subscribe(res=> {
       if(res.success == true){
-  this.questionlists = res.data;
+        this.setdata=res.data;
+        console.log('class Api hit',this.setdata);
+      }
+    },
+    (err)=>{
+      console.log('Topic List Api Error',err.error);
+      this.commonService.tokenDelete(err.error.msg);
+    })
+      }
+
+  getQuestionList(id:any){
+   const data = {"_id": id};
+    this.questionListService.getList(data).subscribe(res => {
+      console.log('result of QuestionList',res);
+      if(res.success == true && res.result.result.length > 0 ){
+       
+  this.questionlists = res;
+      }else {
+        // alert('working')
+        this.setid = '';
       }
     })
   }
@@ -94,7 +121,7 @@ export class OnlineTestComponent implements OnInit {
     this.questionListService.addList(data).subscribe(res => {
       console.log('result api of adding',res);
       if(res.success == true){
-        this.getQuestionList();
+        this.getQuestionList(this.setid);
       }
     },
     (err)=>{
@@ -143,7 +170,7 @@ console.log('correct dsata answer', data);
 this.questionListService.updateApi(this.editIdi,data).subscribe(res => {
   console.log("result of edit api",res);
   if(res.success == true){
-    this.getQuestionList();
+    this.getQuestionList(this.setid);
         }
 },
 (err)=>{
@@ -157,7 +184,7 @@ this.questionListService.updateApi(this.editIdi,data).subscribe(res => {
     this.questionListService.deleteApi(this.deleteIdi).subscribe(res => {
       console.log('this.delete',res);
       if(res.success == true){
-        this.getQuestionList();
+        this.getQuestionList(this.setid);
       }
     },
     (err)=>{

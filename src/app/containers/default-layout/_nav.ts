@@ -77,6 +77,11 @@ export const navItems: INavData[] = [
     iconComponent: { name: 'cil-calculator' },
   },
   {
+    name: 'Live Class',
+    url: '/liveClass',
+    iconComponent: { name: 'cil-calculator' },
+  },
+  {
     name: 'Notification',
     url: '/notification',
     iconComponent: { name: 'cil-calculator' },

@@ -9,6 +9,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 export class ContactUsComponent implements OnInit {
 
   public liveDemoVisible = false;
+  
   data:any =[
     {"id":1, "studentName":' Navin Kumar',  "email": "navinkrisna.raj1@gmail.com", "contactNo": "917004381143", "message":"Today is holiday" ,"time":" 8 Months, 2 Weeks, 5 Days, 19 Hours, 18 Minutes" },
     {"id":2, "studentName":' Navin Kumar',  "email": "navinkrisna.raj1@gmail.com", "contactNo": "917004381143", "message":"Today is holiday" ,"time":" 8 Months, 2 Weeks, 5 Days, 19 Hours, 18 Minutes" },
@@ -21,6 +22,7 @@ export class ContactUsComponent implements OnInit {
 
   constructor() {
    }
+
   ngOnInit(): void {
   }
 

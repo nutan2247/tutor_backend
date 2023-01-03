@@ -1,8 +1,9 @@
- const domain = 'http://localhost:3000/';
-// const domain = 'http://18.117.227.46:3000/';
+//  const domain = 'http://localhost:3000/';
+const domain = 'http://3.140.242.2:3000/';
 
  export let allClass = domain+'admin/class/list';
-
+//  url= 'http://localhost:3000/admin/login
+export let login = domain+'admin/login';
 //  banner/sidebar  http://localhost:3000/admin/banner/list
 export let bannerList = domain+'admin/banner/list';
 export let bannerAdd = domain+'admin/banner/add';
@@ -67,6 +68,12 @@ export let chatlist = domain+'admin/chat/getalllist';
 export let chatAdd = domain+'admin/chat/add';
 export let chatUpdate = domain+'admin/chat/update';
 export let chatDelete = domain+'admin/chat/delete';
+
+// liveClass
+export let meetinglist = domain+'admin/meeting/list';
+export let meetingAdd = domain+'admin/meeting/add';
+export let meetingUpdate = domain+'admin/meeting/update';
+export let meetingDelete = domain+'admin/meeting/delete';
 // chatMessenger
 export let chatAdminPost = domain+'admin/chat/admin';
 export let ChatMessageList = domain+'admin/chat/list';
