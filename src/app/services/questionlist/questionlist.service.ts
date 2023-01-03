@@ -10,8 +10,8 @@ export class QuestionlistService {
 
   constructor(private http: HttpClient) { }
 
-  getList(): Observable<any>{
-    return this.http.get<any>(featureInterface.questionList);
+  getList(data:any): Observable<any>{
+    return this.http.post<any>(featureInterface.questionList,data);
    }
 
    addList(data: any): Observable<any>{

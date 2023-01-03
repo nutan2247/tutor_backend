@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { OnlineTestRoutingModule } from './online-test-routing.module';
-import { OnlineTestComponent } from './online-test/online-test.component';
-// CoreUI Modules
+import { LiveClassComponent } from './live-class/live-class.component';
+import {liveclassRoutingModule} from './liveclass-routing.module'
 import {
   AccordionModule,
   BadgeModule,
@@ -27,26 +25,21 @@ import {
   TabsModule,
   TooltipModule,
   UtilitiesModule,
+
+  AlertModule,
   ModalModule,
+  ToastModule,
 } from '@coreui/angular';
-
 import { IconModule } from '@coreui/icons-angular';
-
-// utils
-import { DocsComponentsModule } from '@docs-components/docs-components.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { QuestionsetListComponent } from './questionset-list/questionset-list.component';
-import { ResultComponent } from './result/result.component';
 
 @NgModule({
   declarations: [
-    OnlineTestComponent,
-    QuestionsetListComponent,
-    ResultComponent,
+    LiveClassComponent
   ],
   imports: [
     CommonModule,
-    OnlineTestRoutingModule,
+    liveclassRoutingModule,
     AccordionModule,
     BadgeModule,
     BreadcrumbModule,
@@ -72,8 +65,10 @@ import { ResultComponent } from './result/result.component';
     PaginationModule,
     PopoverModule,
     TableModule,
-    DocsComponentsModule,
-    ModalModule,FormModule
+    // DocsComponentsModule,
+    AlertModule,
+    ModalModule,
+    ToastModule,
   ]
 })
-export class OnlineTestModule { }
+export class LiveclassModule { }

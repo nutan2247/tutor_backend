@@ -134,7 +134,14 @@ const routes: Routes = [
         loadChildren: () =>
           import('./views/chat/chat.module').then((m) => m.ChatModule)
       },
+      
       {path:'chat/:id', component:ChatboxComponent},
+      
+      {
+        path: 'liveClass',
+        loadChildren: () =>
+          import('./views/liveclass/liveclass.module').then((m) => m.LiveclassModule)
+      },
       {
         path: 'notification',
         loadChildren: () =>
